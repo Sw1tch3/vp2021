@@ -1,6 +1,5 @@
 <?php
 	$author_name = "Daniel Ojala" ;
-
 	$full_time_now = date("d.m.Y H:i:s");
 	$weekday_now = date ("N");
 	$day_category = "lihtsalt paev";
@@ -41,14 +40,15 @@
 		} // if isset lõppeb
 	} //foreach lõppes
 	
-	
-	//var_dump($all_real_files);
+		//var_dump($all_real_files);
 	//loen massivi elementid kokku
 	$file_count = count($photo_files);
 	//loosin juhuslikku arvu (min peab olema 0 ja max count - 1)
 	$photo_num = mt_rand(0, $file_count - 1);
 	//<img src="kataloog/fail" alt="tore pilt">
-	$photo_html = '<img src="" ' . $photo_dir . $photo_files[$photo_num] .  '"alt="tore pilt">';
+	$photo_html = '<img src=" ' . $photo_dir . $photo_files [$photo_num] .  '"alt="tore pilt">';
+?>
+	<?php
 	///kontrolin, kas post jouab kuhugi
 	//var_dump($_POST);
 	///kontrollime kaas klikiti submit
@@ -80,20 +80,26 @@
 	/// filinimi
 	///...
 	/// </ul>
-	$photo_list_html = "\n <ul> \n " ;
-	for ($i=0; $i < $file_count ; $i++) { 
-		$photo_list_html = "<li>" . $photo_files[$i] . "</li> \n";
+	$photo_list_html = "\n <ul> \n";
+	for($i = 0;$i < $file_count;$i ++){
+		$photo_list_html .= "<li>" .$photo_files[$i] ."</li> \n";
 	}
-	$photo_list_html =  "</ul> \n" ;
-
+	$photo_list_html .= "</ul> \n";
 /*	<select name ="photo_select">
 
+
+	<option value="0">1.jfif</option> 
+	<option value="1">R.png</option> 
+	<option value="2">download.jfif</option> 
+
+
 	</select> */
-	$photo_select_html = "\n" . '<select name ="photo_select">' . "\n " ;
-	for ($i=0; $i < $file_count ; $i++) { 
-		$photo_select_html = '<option value="' . $i . '">' .$photo_files[$i] ."</option \n >";
+	$photo_select_html = "\n" .'<select name="photo_select">' ."\n";
+	for($i = 0;$i < $file_count;$i ++){
+		$photo_select_html .= '<option value="' .$i .'">' .$photo_files[$i] ."</option> \n";
 	}
-	$photo_select_html =  "</ul> \n" ;
+	$photo_select_html .= "</select> \n";
+	
 
 	?>
 
@@ -122,8 +128,10 @@
 		 <?php echo $photo_select_html; ?>
 	</form>
 	<hr>
-	<?php echo $photo_html; 
-	 echo $photo_list_html;?> 
+	<?php echo $photo_html;
+	echo $photo_list_html 
+	?>
+
 	
 	
 </body>
