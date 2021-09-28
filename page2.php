@@ -24,7 +24,6 @@
 	
 	//juhuslikku photo lisamine
 	$photo_dir = "photos/" ;
-	///kui tahan kataloogist valja minna panen ../
 	//loen kataloogi sisu
 	$all_files = scandir($photo_dir);
 	$all_real_files = array_slice($all_files, 2);
@@ -40,18 +39,20 @@
 			}// if  in array
 		} // if isset lõppeb
 	} //foreach lõppes
-	
+
 		//var_dump($all_real_files);
 	//loen massivi elementid kokku
 	$file_count = count($photo_files);
 	//loosin juhuslikku arvu (min peab olema 0 ja max count - 1)
 	$photo_num = mt_rand(0, $file_count - 1);
-	
-	////if(isset($_POST))  - homework
-	
 	//<img src="kataloog/fail" alt="tore pilt">
-	$photo_html = '<img src=" ' . $photo_dir . $photo_files [$photo_num] .  '"alt="tore pilt">';
-
+	 if(isset($_POST["photo_select_submit"])){
+		$photo_num = $_POST["photo_select"];
+	}
+    
+	$photo_html = '<img src="' .$photo_dir .$photo_files[$photo_num] .'" alt="Tallinna Ülikool">';
+    
+    $photo_file_html = "\n <p>".$photo_files[$photo_num] ."</p> \n";
 
 ?>
 	<?php
@@ -92,7 +93,6 @@
 	}
 	$photo_list_html .= "</ul> \n";
 	
-	
 /*	<select name ="photo_select">
 
 
@@ -104,11 +104,14 @@
 	</select> */
 	$photo_select_html = "\n" .'<select name="photo_select">' ."\n";
 	for($i = 0;$i < $file_count;$i ++){
-		$photo_select_html .= '<option value="' .$i .'">' .$photo_files[$i] ."</option> \n";
+		$photo_select_html .= '<option value="' .$i .'"';
+        if($i == $photo_num){
+			$photo_select_html .= " selected";
+		}
+        $photo_select_html .= ">" .$photo_files[$i] ."</option> \n";
 	}
 	$photo_select_html .= "</select> \n";
 
-	
 	
 
 	?>
@@ -128,7 +131,7 @@
 				<input type="text" placeholder="kuidas paev on" name="todays_adjective_input" value="<?php echo $todays_adjective; ?>">
 				<input type="submit" name="adjective_submit" value="Saada">
 				<span> <?php echo $todays_adjective_error; ?> </span>
-			<form>
+			</form>
 			<?php echo $todays_adjective_html; ?> 
 		<hr>
 	<img src="photo1.jpg" alt="TLU Mare hoone" width="600">
@@ -136,10 +139,14 @@
 	<hr>
 	<form method="POST">
 		 <?php echo $photo_select_html; ?>
+		 <input type="submit" name="photo_select_submit" value="Näita valitud fotot">
 	</form>
 	<hr>
-	<?php echo $photo_html;
-	echo $photo_list_html;
+	<?php
+	echo $photo_html;
+        echo $photo_file_html;
+		echo "<hr> \n";
+		echo $photo_list_html;
 	?>
 
 	

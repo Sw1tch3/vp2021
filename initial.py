@@ -1,0 +1,7 @@
+a = int(input('toa pikkus (meetrites) = '))
+b = int(input('toa laius (meetrites) = '))
+c = int(input('toa laius (cm) = '))
+d = int(input('toa laius (cm) = '))
+print('toa pindala meetrites = ', a*b)
+print('värvi kulu (kui pindala on meetrites) = ', a*b)
+print('värvi kulu (kui pindala on cm) = ', a*b*10000)
